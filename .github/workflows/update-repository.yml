@@ -16,5 +16,10 @@ jobs:
           fetch-depth: 0
       - shell: bash
         run: |
-          git fetch ./sky-take-out.bundle refs/heads/publish-main
-          git push --force origin FETCH_HEAD:main
+          unzip -o project-source.zip
+          rm -f project-source.zip sky-take-out.bundle
+          git config user.name "1chenhao2"
+          git config user.email "1357447550@qq.com"
+          git add -A
+          git commit -m "feat: publish sky takeout platform"
+          git push origin HEAD:main
