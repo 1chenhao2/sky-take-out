@@ -1,0 +1,94 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+  main:
+    allow-circular-references: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    druid:
+      driver-class-name: ${sky.datasource.driver-class-name}
+      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${sky.datasource.username}
+      password: ${sky.datasource.password}
+  redis:
+    host: ${SKY_REDIS_HOST:localhost}
+    port: ${SKY_REDIS_PORT:6379}
+    password: ${SKY_REDIS_PASSWORD:}
+    database: ${SKY_REDIS_DATABASE:0}
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sky.entity
+  configuration:
+    map-underscore-to-camel-case: true
+logging:
+  level:
+    com.sky.mapper: debug
+    com.sky.service: info
+    com.sky.controller: info
+sky:
+  jwt:
+    admin-secret-key: ${SKY_JWT_ADMIN_SECRET}
+    admin-ttl: ${SKY_JWT_ADMIN_TTL:7200000}
+    admin-token-name: token
+    user-secret-key: ${SKY_JWT_USER_SECRET}
+    user-ttl: ${SKY_JWT_USER_TTL:7200000}
+    user-token-name: authentication
+  wechat:
+    appid: ${SKY_WECHAT_APPID:}
+    secret: ${SKY_WECHAT_SECRET:}
+  ai:
+    api-url: ${SKY_AI_API_URL:https://api.deepseek.com/v1}
+    api-key: ${SKY_AI_API_KEY:}
+    model: ${SKY_AI_MODEL:deepseek-chat}
+    max-tokens: ${SKY_AI_MAX_TOKENS:2000}
+    temperature: ${SKY_AI_TEMPERATURE:0.7}
+    conversation-ttl: ${SKY_AI_CONVERSATION_TTL:30}
+    max-history-messages: ${SKY_AI_MAX_HISTORY_MESSAGES:40}
+  merchant:
+    name: 苍穹外卖
+    description: 苍穹外卖为您提供优质餐品，30-60 分钟内送达。
+    delivery-fee: 5.0
+    min-order-amount: 20.0
+    delivery-range: 3.0
+    avg-delivery-minutes: 45
+    open-time: "09:00"
+    close-time: "22:00"
+    service-phone: "400-123-4567"
+    refund-policy: "未接单可全额退款；其他情况需商家确认。"
+  faq:
+    hot-line: "400-123-4567"
+    entries:
+      - keywords: "配送,多久,多长时间,多久到"
+        category: "配送时长"
+        answer: "一般情况下，下单后 30-60 分钟内送达；高峰期可能略有延长。"
+      - keywords: "配送费,运费,跑腿费"
+        category: "配送费"
+        answer: "配送费 5 元，具体以下单页为准。"
+      - keywords: "起送,最低,多少起"
+        category: "起送价"
+        answer: "起送价 20 元，不含配送费。"
+      - keywords: "范围,距离,多远"
+        category: "配送范围"
+        answer: "配送范围以门店为中心 3 公里内。"
+      - keywords: "营业,几点,开门,关门,时间"
+        category: "营业时间"
+        answer: "每日 09:00 - 22:00 营业。"
+      - keywords: "退款,退货,退钱,取消"
+        category: "退款"
+        answer: "未接单可全额退款；其他情况需商家确认。"
+      - keywords: "支付,微信,支付宝,付款"
+        category: "支付"
+        answer: "下单后请在规定时间内完成支付。"
+      - keywords: "投诉,客服,热线,联系,人工"
+        category: "客服"
+        answer: "请在订单详情中提交问题，或拨打客服热线 400-123-4567。"
+      - keywords: "优惠,折扣,满减,优惠券,红包"
+        category: "优惠活动"
+        answer: "具体优惠活动以下单页面为准。"
+      - keywords: "发票,小票,报销"
+        category: "发票"
+        answer: "如需发票，请在订单完成后联系客服并提供订单号。"
